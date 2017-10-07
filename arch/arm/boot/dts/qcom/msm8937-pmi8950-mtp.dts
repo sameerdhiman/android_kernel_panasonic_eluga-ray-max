@@ -22,3 +22,12 @@
 	qcom,board-id= <8 0>;
 	qcom,pmic-id = <0x10019 0x010011 0x0 0x0>;
 };
+
+&cont_splash_mem {
+	reg = <0x0 0x8dd00000 0x0 0x1400000>;
+};
+
+&clock_gcc {
+	reg = <0x1800000 0x80000 0xb016000 0x40 0xb116000 0x40 0xb1d0000 0x40>;
+	reg-names = "cc_base", "apcs_c1_base", "apcs_c0_base", "apcs_cci_base";
+};

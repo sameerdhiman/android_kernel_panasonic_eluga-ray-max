@@ -28,20 +28,102 @@
 
 /{
 	mtp_batterydata: qcom,battery-data {
-		qcom,batt-id-range-pct = <15>;
-		#include "batterydata-itech-3000mah.dtsi"
-		#include "batterydata-ascent-3450mAh.dtsi"
+		qcom,batt-id-range-pct = <100>;
+		#include "batterydata-tinno-3000mah.dtsi"
+	};
+};
+
+&pmi8950_poweron {
+	qcom,pon_perph_reg {
+		qcom,pon-spare-reg-addr = <0x8c>;
+		qcom,pon-spare-reg-bit = <0x1>;
+		regulator-name = "pon_spare_reg";
 	};
 };
 
 &pmi8950_fg {
 	qcom,battery-data = <&mtp_batterydata>;
+	qcom,bad-battery-detection-enable;
+	qcom,cold-bat-decidegc = <0x0>;
+	qcom,cool-bat-decidegc = <0x64>;
+	qcom,ext-sense-type;
+	qcom,fg-cc-cv-threshold-mv = <0x1126>;
+	qcom,fg-chg-iterm-ma = <0xfa>;
+	qcom,fg-cutoff-voltage-mv = <0xd48>;
+	qcom,fg-delta-soc = <0x1>;
+	qcom,fg-iterm-ma = <0x12c>;
+	qcom,hold-soc-while-full;
+	qcom,hot-bat-decidegc = <0x258>;
+	qcom,thermal-coefficients = [c8 86 c1 50 d3 37];
+	qcom,tnmb-spebat = <0x96 0x42 0xfa>;
+	qcom,vbat-estimate-diff-mv = <0x28>;
+	qcom,warm-bat-decidegc = <0x1f4>;
 };
 
 &pmi8950_charger {
 	qcom,battery-data = <&mtp_batterydata>;
 	qcom,chg-led-sw-controls;
 	qcom,chg-led-support;
+	qcom,fastchg-current-comp = <0x384>;
+	qcom,fastchg-current-ma = <0xce4>;
+	qcom,float-voltage-comp = <0xd>;
+	qcom,float-voltage-mv = <0x1130>;
+	qcom,iterm-ma = <0x12c>;
+	qcom,speed-current = <0xce4 0xbb8 0x960 0x8fc 0x7d0 0x3e8 0x384 0x1c2 0x190 0x0>;
+	qcom,thermal-mitigation = <0xbb8 0x5dc 0x12c 0x0>;
+};
+
+&pmi8950_pwm {
+	qcom,period = <0xf4240>;
+	qcom,lpg-dtest-line = <0x1>;
+	qcom,dtest-output = <0x1>;
+
+	qcom,pwm {
+		qcom,duty = <0x7a120>;
+		label = "pwm";
+	};
+};
+
+&pmi8950_switch {
+	reg0 {
+		regulator-name = "pon_spare_reg";
+	};
+};
+
+&pmi8950_gpios {
+	gpio@c100 {
+		qcom,mode = <0>;
+		qcom,output-type = <2>;
+		qcom,pull = <1>;
+		qcom,vin-sel = <0>;
+		qcom,out-strength = <2>;
+	};
+};
+
+&pmi8950_leds {
+	status = "okay";
+
+	qcom,led_mpp_2 {
+		label = "mpp";
+		linux,name = "green";
+		linux,default-trigger = "none";
+		qcom,default-state = "off";
+		qcom,max-current = <0x28>;
+		qcom,current-setting = <0xa>;
+		qcom,id = <0x6>;
+		qcom,mode = "pwm";
+		qcom,source-sel = <0x8>;
+		qcom,mode-ctrl = <0x60>;
+		qcom,pwm-channel = <0x0>;
+		qcom,pwm-us = <0x4c4b40>;
+		pwms = <&pmi8950_pwm 0x0 0x0>;
+		pwm-names = "green";
+		qcom,use-blink;
+	};
+};
+
+&pmi_haptic {
+	qcom,vmax-mv = <3000>;
 };
 
 &mdss_dsi0 {
