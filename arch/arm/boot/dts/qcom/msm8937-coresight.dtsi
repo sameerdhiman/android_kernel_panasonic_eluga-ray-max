@@ -1025,6 +1025,5 @@
 		vdd-io-supply = <&pm8937_l12>;
 		qcom,vdd-io-voltage-level = <2950000 2950000>;
 		qcom,vdd-io-current-level = <200 50000>;
-		qcom,pmic-carddetect-gpio = <&pm8937_gpios 2 0>;
 	};
 };
