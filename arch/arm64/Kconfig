@@ -1003,3 +1003,25 @@ endif
 source "lib/Kconfig"
 
 source "arch/arm64/mm/Kconfig"
+
+menu "QCOM Standard Device or Custom Project Based Device"
+
+choice
+	prompt "Select Device"
+	default QCOM_STD_DEVICE
+	help
+	  Select between QCOM standard or custom project based device.
+
+config QCOM_STD_DEVICE
+	bool "QCOM-STD-DEV"
+	help
+	  This feature enables QCOM standard device support.
+
+config PROJECT_P7701
+	bool "Tinno-P7701"
+	help
+	  This feature enables Tinno P7701.
+
+endchoice
+
+endmenu
